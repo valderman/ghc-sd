@@ -1,0 +1,174 @@
+diff -ruN old/debian/changelog new/debian/changelog
+--- old/debian/changelog	2019-04-24 08:33:36.000000000 +0200
++++ new/debian/changelog	2019-10-01 16:49:16.489180279 +0200
+@@ -1,5 +1,5 @@
+-ghc-8.6.5 (8.6.5-9~19.04) disco; urgency=medium
++ghc-8.6.5-sd (8.6.5-9~19.04) disco; urgency=medium
+ 
+   * Initial release
+ 
+- -- Herbert Valerio Riedel <hvr@gnu.org>  Fri, 24 May 2019 11:37:30 +0200
++ -- MAINTAINER  Wed, 02 Oct 2019 21:15:12 +0200
+diff -ruN old/debian/control new/debian/control
+--- old/debian/control	2019-04-24 08:33:36.000000000 +0200
++++ new/debian/control	2019-10-01 16:47:47.896519167 +0200
+@@ -1,31 +1,31 @@
+-Source: ghc-8.6.5
++Source: ghc-8.6.5-sd
+ Section: universe/haskell
+ Priority: extra
+-Maintainer: Herbert Valerio Riedel <hvr@gnu.org>
++Maintainer: MAINTAINER
+ Build-Depends: debhelper (>= 9), libgmp-dev, libtinfo-dev, libncurses5-dev, libffi-dev, binutils, gcc, pkg-config, hscolour, ghc-8.4.4, alex-3.1.7
+ Standards-Version: 3.9.4
+ Homepage: http://www.haskell.org/ghc/
+ 
+-Package: ghc-8.6.5
++Package: ghc-8.6.5-sd
+ Architecture: amd64 i386
+ Depends: gcc, libc6, libc6-dev, libgmp10, libgmp-dev, libncursesw5, libtinfo5
+ Description: The Glasgow Haskell Compilation system
+  This package provides a minimal GHC build for CI purposes
+ 
+-Package: ghc-8.6.5-prof
++Package: ghc-8.6.5-sd-prof
+ Architecture: amd64 i386
+-Depends: ghc-8.6.5 (= 8.6.5-9~19.04)
++Depends: ghc-8.6.5-sd (= 8.6.5-9~19.04)
+ Description: The Glasgow Haskell Compilation system
+  This package contains the profiling libs
+ 
+-Package: ghc-8.6.5-dyn
++Package: ghc-8.6.5-sd-dyn
+ Architecture: amd64 i386
+-Depends: ghc-8.6.5 (= 8.6.5-9~19.04)
++Depends: ghc-8.6.5-sd (= 8.6.5-9~19.04)
+ Description: The Glasgow Haskell Compilation system
+  This package is an empty transitional package. You can safely remove it.
+ 
+-Package: ghc-8.6.5-htmldocs
++Package: ghc-8.6.5-sd-htmldocs
+ Architecture: amd64 i386
+-Depends: ghc-8.6.5
++Depends: ghc-8.6.5-sd
+ Description: The Glasgow Haskell Compilation system
+  This package contains the Haddock generated html files
+diff -ruN old/debian/ghc-8.6.5.links new/debian/ghc-8.6.5.links
+--- old/debian/ghc-8.6.5.links	2019-04-24 08:33:36.000000000 +0200
++++ new/debian/ghc-8.6.5.links	1970-01-01 01:00:00.000000000 +0100
+@@ -1,5 +0,0 @@
+-opt/ghc/8.6.5/bin/ghc-8.6.5 opt/ghc/bin/ghc-8.6.5
+-opt/ghc/8.6.5/bin/ghci-8.6.5 opt/ghc/bin/ghci-8.6.5
+-opt/ghc/8.6.5/bin/ghc-pkg-8.6.5 opt/ghc/bin/ghc-pkg-8.6.5
+-opt/ghc/8.6.5/bin/haddock-ghc-8.6.5 opt/ghc/bin/haddock-ghc-8.6.5
+-opt/ghc/8.6.5/bin/runghc-8.6.5 opt/ghc/bin/runghc-8.6.5
+diff -ruN old/debian/ghc-8.6.5.postinst new/debian/ghc-8.6.5.postinst
+--- old/debian/ghc-8.6.5.postinst	2019-04-24 08:33:36.000000000 +0200
++++ new/debian/ghc-8.6.5.postinst	1970-01-01 01:00:00.000000000 +0100
+@@ -1,6 +0,0 @@
+-#! /bin/sh
+-set -e
+-
+-touch /opt/ghc/8.6.5/lib/ghc-*/package.conf.d/package.cache
+-
+-update-alternatives --install /opt/ghc/bin/ghc opt-ghc /opt/ghc/bin/ghc-8.6.5 80605 --slave /opt/ghc/bin/runghc opt-runghc /opt/ghc/bin/runghc-8.6.5 --slave /opt/ghc/bin/ghci opt-ghci /opt/ghc/bin/ghci-8.6.5 --slave /opt/ghc/bin/ghc-pkg opt-ghc-pkg /opt/ghc/bin/ghc-pkg-8.6.5 --slave /opt/ghc/bin/haddock opt-haddock /opt/ghc/bin/haddock-ghc-8.6.5  #DEBHELPER#
+diff -ruN old/debian/ghc-8.6.5.prerm new/debian/ghc-8.6.5.prerm
+--- old/debian/ghc-8.6.5.prerm	2019-04-24 08:33:36.000000000 +0200
++++ new/debian/ghc-8.6.5.prerm	1970-01-01 01:00:00.000000000 +0100
+@@ -1,9 +0,0 @@
+-#! /bin/sh
+-set -e
+-
+-if test "$1" != upgrade
+-then
+-  update-alternatives --remove opt-ghc /opt/ghc/bin/ghc-8.6.5
+-fi
+-
+-#DEBHELPER#
+diff -ruN old/debian/ghc-8.6.5-sd.links new/debian/ghc-8.6.5-sd.links
+--- old/debian/ghc-8.6.5-sd.links	1970-01-01 01:00:00.000000000 +0100
++++ new/debian/ghc-8.6.5-sd.links	2019-10-01 16:46:43.144033758 +0200
+@@ -0,0 +1,5 @@
++opt/ghc/8.6.5-sd/bin/ghc-8.6.5 opt/ghc/bin/ghc-8.6.5-sd
++opt/ghc/8.6.5-sd/bin/ghci-8.6.5 opt/ghc/bin/ghci-8.6.5-sd
++opt/ghc/8.6.5-sd/bin/ghc-pkg-8.6.5 opt/ghc/bin/ghc-pkg-8.6.5-sd
++opt/ghc/8.6.5-sd/bin/haddock-ghc-8.6.5 opt/ghc/bin/haddock-ghc-8.6.5-sd
++opt/ghc/8.6.5-sd/bin/runghc-8.6.5 opt/ghc/bin/runghc-8.6.5-sd
+diff -ruN old/debian/ghc-8.6.5-sd.postinst new/debian/ghc-8.6.5-sd.postinst
+--- old/debian/ghc-8.6.5-sd.postinst	1970-01-01 01:00:00.000000000 +0100
++++ new/debian/ghc-8.6.5-sd.postinst	2019-10-01 16:46:43.144033758 +0200
+@@ -0,0 +1,6 @@
++#! /bin/sh
++set -e
++
++touch /opt/ghc/8.6.5-sd/lib/ghc-*/package.conf.d/package.cache
++
++update-alternatives --install /opt/ghc/bin/ghc opt-ghc /opt/ghc/bin/ghc-8.6.5-sd 80605 --slave /opt/ghc/bin/runghc opt-runghc /opt/ghc/bin/runghc-8.6.5-sd --slave /opt/ghc/bin/ghci opt-ghci /opt/ghc/bin/ghci-8.6.5-sd --slave /opt/ghc/bin/ghc-pkg opt-ghc-pkg /opt/ghc/bin/ghc-pkg-8.6.5-sd --slave /opt/ghc/bin/haddock opt-haddock /opt/ghc/bin/haddock-ghc-8.6.5-sd  #DEBHELPER#
+diff -ruN old/debian/ghc-8.6.5-sd.prerm new/debian/ghc-8.6.5-sd.prerm
+--- old/debian/ghc-8.6.5-sd.prerm	1970-01-01 01:00:00.000000000 +0100
++++ new/debian/ghc-8.6.5-sd.prerm	2019-10-01 16:46:43.144033758 +0200
+@@ -0,0 +1,9 @@
++#! /bin/sh
++set -e
++
++if test "$1" != upgrade
++then
++  update-alternatives --remove opt-ghc /opt/ghc/bin/ghc-8.6.5-sd
++fi
++
++#DEBHELPER#
+diff -ruN old/debian/rules new/debian/rules
+--- old/debian/rules	2019-10-01 21:32:33.180713770 +0200
++++ new/debian/rules	2019-10-01 21:33:13.948907739 +0200
+@@ -4,7 +4,7 @@
+ 
+ export PATH := $(PATH):/opt/alex/3.1.7/bin
+ 
+-GHCDEBVER=8.6.5
++GHCDEBVER=8.6.5-sd
+ 
+ export DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+ 
+@@ -16,15 +16,24 @@
+ 	dh $@ --parallel
+ 
+ override_dh_auto_configure:
+-	echo "HADDOCK_DOCS=YES"		>  mk/build.mk
+-	echo "HSCOLOUR_SRCS=YES"	>> mk/build.mk
+-	echo "LATEX_DOCS=NO"		>> mk/build.mk
+-	echo "BUILD_SPHINX_HTML=NO"	>> mk/build.mk
+-	echo "BUILD_SPHINX_PDF=NO"	>> mk/build.mk
+-	echo "BUILD_DOCBOOK_HTML=NO"	>> mk/build.mk
+-	echo "BUILD_DOCBOOK_PDF=NO"	>> mk/build.mk
+-	echo "BUILD_DOCBOOK_PS=NO"	>> mk/build.mk
+-	echo "GhcLibWays=v dyn p"	>> mk/build.mk
++	echo "HADDOCK_DOCS=YES"		 >  mk/build.mk
++	echo "HSCOLOUR_SRCS=YES"	 >> mk/build.mk
++	echo "LATEX_DOCS=NO"		 >> mk/build.mk
++	echo "BUILD_SPHINX_HTML=NO"	 >> mk/build.mk
++	echo "BUILD_SPHINX_PDF=NO"	 >> mk/build.mk
++	echo "BUILD_DOCBOOK_HTML=NO"	 >> mk/build.mk
++	echo "BUILD_DOCBOOK_PDF=NO"	 >> mk/build.mk
++	echo "BUILD_DOCBOOK_PS=NO"	 >> mk/build.mk
++	echo "GhcLibWays=v dyn p"	 >> mk/build.mk
++	echo "SRC_HC_OPTS=-O -H64m"      >> mk/build.mk
++	echo "GhcStage1HcOpts=-O"        >> mk/build.mk
++	echo "GhcStage2HcOpts=-O2 -fPIC" >> mk/build.mk
++	echo "GhcLibHcOpts=-O2 -fPIC"    >> mk/build.mk
++	echo "BUILD_PROF_LIBS=NO"        >> mk/build.mk
++	echo "EXTRA_HC_OPTS=-fPIC"       >> mk/build.mk
++	echo "SRC_CC_OPTS=-fPIC -O2"     >> mk/build.mk
++	echo "GhcLibWays=v dyn"          >> mk/build.mk
++	echo "DYNAMIC_GHC_PROGRAMS=YES"  >> mk/build.mk
+ 	echo "V=0" >> mk/build.mk
+ 	echo "compiler/main/DynFlags_HC_OPTS += +RTS -M2G -RTS" >> mk/build.mk
+ 	./configure $(EXTRA_CONFIGURE_FLAGS) --prefix=/opt/ghc/$(GHCDEBVER)
+@@ -33,7 +42,7 @@
+ 
+ override_dh_auto_build:
+ 	free
+-	make -j2
++	make -j1
+ 
+ override_dh_shlibdeps:
+ 
