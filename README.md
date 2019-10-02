@@ -14,6 +14,9 @@ use the following GHC flags:
 ```
 -fPIC -shared -optl-Wl,-Bstatic -lHSrts -lCffi -optl-Wl,-Bdynamic -lrt -lpthread
 ```
+Unfortunately, `cabal` has its own ideas about what flags to pass to the linker,
+which makes it unable to produce shared libraries with statically linked Haskell
+dependencies even when properly setting `ld-options` and/or `ghc-options`.
 
 ## Why?
 Because it's nice to be able to distribute Haskell .so files without having to
