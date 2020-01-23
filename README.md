@@ -6,6 +6,17 @@ Supported GHC versions:
 * 8.6.5
 
 ## How?
+### If you're on a Debian-based system
+Add my Debian repository to your sources, then install the package with `apt`:
+
+```
+echo deb https://deb.ekblad.cc/ubuntu disco main | sudo tee /etc/apt/sources.list.d/ekblad-cc-disco
+wget -O - https://ekblad.cc/key.asc | sudo apt-key add -
+sudo apt update
+sudo apt install ghc-sd
+```
+
+### Otherwise
 Install docker, run `make`, wait. When make is done, you'll find your package
 in the `deb` subdirectory.
 
